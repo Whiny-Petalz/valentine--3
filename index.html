@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Message For You 💌</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    font-family:'Fredoka',sans-serif;
+    background:url("heart-bg.jpg");
+    background-size:cover;
+    background-position:center;
+    text-align:center;
+    overflow:hidden;
+}
+
+.page{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    height:100vh;
+}
+
+.pulse{
+    animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.1);}
+100%{transform:scale(1);}
+}
+
+.envelope{
+    width:210px;
+    cursor:pointer;
+}
+
+.startText{
+    font-size:32px;
+    margin-top:15px;
+}
+
+.window{
+    background:url("window.png");
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center;
+    padding:110px 60px 120px;
+    width:90%;
+    max-width:720px;
+    box-sizing:border-box;
+}
+
+.window h1{
+    font-size:26px;
+    margin:0;
+    margin-top:-10px;
+    margin-bottom:20px;
+}
+
+.cat{
+    width:180px;
+    margin:6px auto;
+}
+
+.buttonRow{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+}
+
+.yesWrap{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    transition:0.2s;
+}
+
+#yesBtn,#noBtn{
+    width:135px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+#result{
+    color:#7a003c;
+    font-weight:700;
+    min-height:24px;
+    font-size:20px;
+    text-shadow:1px 1px 0 #ffd6e8;
+}
+
+.heart{
+    position:fixed;
+    bottom:-10px;
+    animation:floatUp 6s linear infinite;
+}
+
+@keyframes floatUp{
+from{transform:translateY(0);}
+to{transform:translateY(-100vh);opacity:0;}
+}
+
+.shake{
+    animation:shake 0.4s;
+}
+
+@keyframes shake{
+0%{transform:translate(2px,2px);}
+25%{transform:translate(-2px,2px);}
+50%{transform:translate(2px,-2px);}
+75%{transform:translate(-2px,-2px);}
+100%{transform:translate(0);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background music (optional) -->
+<audio autoplay loop id="bgMusic">
+<source src="music.mp3">
+</audio>
+
+<!-- CLICK SOUND -->
+<audio id="clickSound">
+<source src="click.mp3">
+</audio>
+
+<!-- VOICE NOTE -->
+<audio id="voiceNote">
+<source src="voice.mp3">
+</audio>
+
+<!-- PAGE 1 -->
+<div id="startPage" class="page">
+
+<img src="envelope.png" class="envelope pulse" onclick="openWindow()">
+
+<div class="startText">
+♡ There's a message for you ♡
+</div>
+
+</div>
+
+<!-- PAGE 2 -->
+<div id="page1" class="page" style="display:none;">
+<div class="window">
+
+<h1>Will you be my Valentine? 💖</h1>
+
+<img src="cat_dance.gif" class="cat">
+
+<div class="buttonRow">
+
+<div class="yesWrap" id="yesWrap">
+<img src="yes.png" id="yesBtn">
+<div id="result"></div>
+</div>
+
+<img src="no.png" id="noBtn">
+
+</div>
+
+</div>
+</div>
+
+<!-- PAGE 3 -->
+<div id="page2" class="page" style="display:none;">
+<div class="window">
+
+<h1>YAYYY 💞✨</h1>
+
+<img src="cat_heart.gif" class="cat">
+
+<p style="max-width:480px;margin:auto;line-height:1.8;color:#5a2b3b;font-size:20px;font-weight:600;">
+Okay sooo now that you clicked YES 😌💗  
+
+I know it's already a little late and
+Valentine’s week is starting and all...  
+
+But since this is our first one together,
+I wanted to ask you properly anyway.  
+
+Being with you makes everything softer,
+funnier, and warmer every day.  
+
+So... will you be my Valentine this year? 💖✨  
+
+(No escaping now btw 😌💘)
+</p>
+
+</div>
+</div>
+
+<script>
+function openWindow(){
+document.getElementById("clickSound").play();
+
+setTimeout(()=>{
+document.getElementById("startPage").style.display="none";
+document.getElementById("page1").style.display="flex";
+
+/* play voice note */
+document.getElementById("voiceNote").play();
+},300);
+}
+
+let yesBtn=document.getElementById("yesBtn");
+let noBtn=document.getElementById("noBtn");
+let result=document.getElementById("result");
+let yesWrap=document.getElementById("yesWrap");
+
+let scale=1;
+let step=0;
+
+let yesTexts=[
+"Are you sureee? 😌",
+"Really really sure? 💗",
+"No going back 👀",
+"Final answer?? 💞",
+"Okaaaay 😌"
+];
+
+yesBtn.onclick=function(){
+if(step<yesTexts.length){
+result.innerHTML=yesTexts[step];
+scale+=0.25;
+yesWrap.style.transform="scale("+scale+")";
+step++;
+}
+else{
+yesWrap.style.transform="scale(6)";
+noBtn.style.display="none";
+
+document.body.classList.add("shake");
+
+setTimeout(()=>{
+document.body.classList.remove("shake");
+document.getElementById("page1").style.display="none";
+document.getElementById("page2").style.display="flex";
+confetti();
+},600);
+}
+};
+
+let noTexts=[
+"Wrong option 😤",
+"You can't escape 😂",
+"Click YES 😌",
+"Nice try",
+"Nope nope nope"
+];
+
+noBtn.onmouseover=function(){
+noBtn.style.position="absolute";
+
+let x=Math.random()*(window.innerWidth-120);
+let y=Math.random()*(window.innerHeight-120);
+
+noBtn.style.left=x+"px";
+noBtn.style.top=y+"px";
+
+result.innerHTML=
+noTexts[Math.floor(Math.random()*noTexts.length)];
+};
+
+setInterval(()=>{
+let heart=document.createElement("div");
+let hearts=["💖","💗","💞","✨"];
+
+heart.innerHTML=
+hearts[Math.floor(Math.random()*hearts.length)];
+
+heart.className="heart";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*20+15)+"px";
+
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),6000);
+},500);
+
+function confetti(){
+for(let i=0;i<80;i++){
+let c=document.createElement("div");
+c.innerHTML="💖";
+c.style.position="fixed";
+c.style.left=Math.random()*100+"vw";
+c.style.top="-10px";
+c.style.fontSize="20px";
+c.style.animation="floatUp 3s linear";
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),3000);
+}
+}
+</script>
+
+</body>
+</html>
