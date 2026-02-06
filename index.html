@@ -16,7 +16,6 @@ body{
     overflow:hidden;
 }
 
-/* floating I love you text */
 .loveText{
     position:fixed;
     color:rgba(255,0,100,0.28);
@@ -59,7 +58,6 @@ to{transform:translateY(-100vh);}
     margin-top:15px;
 }
 
-/* bigger usable red box without changing shape */
 .window{
     background:url("window.png");
     background-size:contain;
@@ -73,8 +71,6 @@ to{transform:translateY(-100vh);}
 
 .window h1{
     font-size:26px;
-    margin:0;
-    margin-top:-10px;
     margin-bottom:20px;
 }
 
@@ -94,13 +90,11 @@ to{transform:translateY(-100vh);}
     display:flex;
     flex-direction:column;
     align-items:center;
-    transition:0.2s;
 }
 
 #yesBtn,#noBtn{
     width:135px;
     cursor:pointer;
-    transition:0.2s;
 }
 
 #result{
@@ -120,40 +114,24 @@ to{transform:translateY(-100vh);}
 from{transform:translateY(0);}
 to{transform:translateY(-100vh);opacity:0;}
 }
-
-.shake{
-    animation:shake 0.4s;
-}
-
-@keyframes shake{
-0%{transform:translate(2px,2px);}
-25%{transform:translate(-2px,2px);}
-50%{transform:translate(2px,-2px);}
-75%{transform:translate(-2px,-2px);}
-100%{transform:translate(0);}
-}
 </style>
 </head>
 
 <body>
 
-<!-- background music -->
 <audio id="bgMusic" preload="auto" loop>
 <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- click sound -->
 <audio id="clickSound" preload="auto">
 <source src="click.mp3" type="audio/mpeg">
 </audio>
 
-<!-- PAGE 1 -->
 <div id="startPage" class="page">
 <img src="envelope.png" class="envelope pulse" onclick="openWindow()">
 <div class="startText">♡ There's a message for you ♡</div>
 </div>
 
-<!-- PAGE 2 -->
 <div id="page1" class="page" style="display:none;">
 <div class="window">
 
@@ -173,7 +151,6 @@ to{transform:translateY(-100vh);opacity:0;}
 </div>
 </div>
 
-<!-- PAGE 3 -->
 <div id="page2" class="page" style="display:none;">
 <div class="window">
 
@@ -181,14 +158,7 @@ to{transform:translateY(-100vh);opacity:0;}
 
 <img src="cat_heart.gif" class="cat">
 
-<p style="
-max-width:440px;
-margin:auto;
-line-height:1.6;
-color:#5a2b3b;
-font-size:18px;
-font-weight:600;
-">
+<p style="max-width:440px;margin:auto;line-height:1.6;color:#5a2b3b;font-size:18px;font-weight:600;">
 Okieee sooo now that you've clicked YES 🥰💗  
 I know it's already a little late... and Valentine’s week is starting and all...  
 But since this is our first one together,
@@ -209,8 +179,14 @@ So… will you be my Valentine this year? 💖✨
 <script>
 function openWindow(){
 let click=document.getElementById("clickSound");
+let music=document.getElementById("bgMusic");
+
 click.currentTime=0;
 click.play();
+
+/* start music when YES/NO page appears */
+music.currentTime=0;
+music.play().catch(()=>{});
 
 setTimeout(()=>{
 document.getElementById("startPage").style.display="none";
@@ -242,60 +218,31 @@ yesWrap.style.transform="scale("+scale+")";
 step++;
 }
 else{
-yesWrap.style.transform="scale(6)";
-noBtn.style.display="none";
-
-document.body.classList.add("shake");
-
-/* PLAY MUSIC RIGHT ON CLICK */
-let music=document.getElementById("bgMusic");
-music.currentTime=0;
-music.play().catch(()=>{});
-
-setTimeout(()=>{
-document.body.classList.remove("shake");
 document.getElementById("page1").style.display="none";
 document.getElementById("page2").style.display="flex";
 confetti();
 loveBackground();
-},600);
 }
 };
-
 
 let noTexts=[
 "Wrong option 😤",
 "You can't escape 😂",
 "You better click YES rn dawg 😦",
 "Nice try 😒",
-"Nope nope nope 🙅‍♀️"
-" BRUHHHHHHHHH" 
-" You no luv me no more :("
+"Nope nope nope 🙅‍♀️",
+"BRUHHHHHHHHH",
+"You no luv me no more :(",
 "😔😔😔😔"
 ];
 
 noBtn.onmouseover=function(){
 noBtn.style.position="absolute";
+noBtn.style.left=Math.random()*80+"vw";
+noBtn.style.top=Math.random()*80+"vh";
 
-let x=Math.random()*(window.innerWidth-120);
-let y=Math.random()*(window.innerHeight-120);
-
-noBtn.style.left=x+"px";
-noBtn.style.top=y+"px";
-
-result.innerHTML=
-noTexts[Math.floor(Math.random()*noTexts.length)];
+result.innerHTML=noTexts[Math.floor(Math.random()*noTexts.length)];
 };
-
-setInterval(()=>{
-let heart=document.createElement("div");
-heart.innerHTML=["💖","💗","💞","✨"][Math.floor(Math.random()*4)];
-heart.className="heart";
-heart.style.left=Math.random()*100+"vw";
-heart.style.fontSize=(Math.random()*20+15)+"px";
-document.body.appendChild(heart);
-setTimeout(()=>heart.remove(),6000);
-},500);
 
 function confetti(){
 for(let i=0;i<100;i++){
@@ -325,4 +272,3 @@ setTimeout(()=>t.remove(),10000);
 
 </body>
 </html>
-
