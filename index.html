@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Message For You 💌</title>
+<title>OHhhh!!!! Looks like theres a Message For You 💌</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
 
@@ -14,6 +14,20 @@ body{
     background-position:center;
     text-align:center;
     overflow:hidden;
+}
+
+/* floating I love you text */
+.loveText{
+    position:fixed;
+    color:rgba(255,0,100,0.15);
+    font-size:40px;
+    pointer-events:none;
+    animation:floatLove 10s linear infinite;
+}
+
+@keyframes floatLove{
+from{transform:translateY(100vh);}
+to{transform:translateY(-100vh);}
 }
 
 .page{
@@ -122,77 +136,59 @@ to{transform:translateY(-100vh);opacity:0;}
 
 <body>
 
-<!-- Background music (optional) -->
-<audio autoplay loop id="bgMusic">
+<audio id="bgMusic" loop>
 <source src="music.mp3">
 </audio>
 
-<!-- CLICK SOUND -->
 <audio id="clickSound">
 <source src="click.mp3">
 </audio>
 
-<!-- VOICE NOTE -->
-<audio id="voiceNote">
-<source src="voice.mp3">
-</audio>
-
-<!-- PAGE 1 -->
 <div id="startPage" class="page">
-
 <img src="envelope.png" class="envelope pulse" onclick="openWindow()">
-
-<div class="startText">
-♡ There's a message for you ♡
+<div class="startText">♡ There's a message for you ♡</div>
 </div>
 
-</div>
-
-<!-- PAGE 2 -->
 <div id="page1" class="page" style="display:none;">
 <div class="window">
-
 <h1>Will you be my Valentine? 💖</h1>
 
 <img src="cat_dance.gif" class="cat">
 
 <div class="buttonRow">
-
 <div class="yesWrap" id="yesWrap">
 <img src="yes.png" id="yesBtn">
 <div id="result"></div>
 </div>
 
 <img src="no.png" id="noBtn">
-
 </div>
 
 </div>
 </div>
 
-<!-- PAGE 3 -->
 <div id="page2" class="page" style="display:none;">
 <div class="window">
 
-<h1>YAYYY 💞✨</h1>
+<h1>YAYYAYYYAYYYY💞✨</h1>
 
 <img src="cat_heart.gif" class="cat">
 
 <p style="max-width:480px;margin:auto;line-height:1.8;color:#5a2b3b;font-size:20px;font-weight:600;">
-Okay sooo now that you clicked YES 😌💗  
+Okieee sooo now that you clicked YES 🥰💗  
 
-I know it's already a little late and
-Valentine’s week is starting and all...  
-
+I know it's already a little late... and Valentine’s week is starting and all...  
 But since this is our first one together,
-I wanted to ask you properly anyway.  
+I wanted to ask you properly anyway lol 😭
 
-Being with you makes everything softer,
-funnier, and warmer every day.  
+Being with you honestly makes everything softer, funnier, and warmer every day.
+Thank you for being so patient with me, making me laugh, and just being you with me.
 
-So... will you be my Valentine this year? 💖✨  
+I really love the little moments we share, and I'm really looking forward to make many more memories together <3
 
-(No escaping now btw 😌💘)
+So… will you be my Valentine this year? 💖✨
+
+(You're not getting rid of me now btw 🤷‍♀️😌)
 </p>
 
 </div>
@@ -200,14 +196,18 @@ So... will you be my Valentine this year? 💖✨
 
 <script>
 function openWindow(){
-document.getElementById("clickSound").play();
+let click=document.getElementById("clickSound");
+let music=document.getElementById("bgMusic");
+
+click.currentTime=0;
+click.play();
+
+music.currentTime=0;
+music.play();
 
 setTimeout(()=>{
 document.getElementById("startPage").style.display="none";
 document.getElementById("page1").style.display="flex";
-
-/* play voice note */
-document.getElementById("voiceNote").play();
 },300);
 }
 
@@ -245,6 +245,7 @@ document.body.classList.remove("shake");
 document.getElementById("page1").style.display="none";
 document.getElementById("page2").style.display="flex";
 confetti();
+loveBackground();
 },600);
 }
 };
@@ -253,8 +254,8 @@ let noTexts=[
 "Wrong option 😤",
 "You can't escape 😂",
 "Click YES 😌",
-"Nice try",
-"Nope nope nope"
+"Nice try 😒",
+"Nope nope nope 🙅‍♀️"
 ];
 
 noBtn.onmouseover=function(){
@@ -272,31 +273,37 @@ noTexts[Math.floor(Math.random()*noTexts.length)];
 
 setInterval(()=>{
 let heart=document.createElement("div");
-let hearts=["💖","💗","💞","✨"];
-
-heart.innerHTML=
-hearts[Math.floor(Math.random()*hearts.length)];
-
+heart.innerHTML=["💖","💗","💞","✨"][Math.floor(Math.random()*4)];
 heart.className="heart";
 heart.style.left=Math.random()*100+"vw";
 heart.style.fontSize=(Math.random()*20+15)+"px";
-
 document.body.appendChild(heart);
 setTimeout(()=>heart.remove(),6000);
 },500);
 
 function confetti(){
-for(let i=0;i<80;i++){
+for(let i=0;i<100;i++){
 let c=document.createElement("div");
 c.innerHTML="💖";
 c.style.position="fixed";
 c.style.left=Math.random()*100+"vw";
 c.style.top="-10px";
-c.style.fontSize="20px";
+c.style.fontSize="22px";
 c.style.animation="floatUp 3s linear";
 document.body.appendChild(c);
 setTimeout(()=>c.remove(),3000);
 }
+}
+
+function loveBackground(){
+setInterval(()=>{
+let t=document.createElement("div");
+t.className="loveText";
+t.innerHTML="I love you 💖";
+t.style.left=Math.random()*90+"vw";
+document.body.appendChild(t);
+setTimeout(()=>t.remove(),10000);
+},1200);
 }
 </script>
 
