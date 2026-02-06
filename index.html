@@ -19,7 +19,7 @@ body{
 /* floating I love you text */
 .loveText{
     position:fixed;
-    color:rgba(255,0,100,0.25);
+    color:rgba(255,0,100,0.28);
     font-size:48px;
     font-weight:bold;
     pointer-events:none;
@@ -59,12 +59,13 @@ to{transform:translateY(-100vh);}
     margin-top:15px;
 }
 
+/* bigger usable red box without changing shape */
 .window{
     background:url("window.png");
     background-size:contain;
     background-repeat:no-repeat;
     background-position:center;
-    padding:110px 60px 120px;
+    padding:100px 55px 140px;
     width:90%;
     max-width:720px;
     box-sizing:border-box;
@@ -107,7 +108,6 @@ to{transform:translateY(-100vh);}
     font-weight:700;
     min-height:24px;
     font-size:20px;
-    text-shadow:1px 1px 0 #ffd6e8;
 }
 
 .heart{
@@ -137,12 +137,14 @@ to{transform:translateY(-100vh);opacity:0;}
 
 <body>
 
-<audio id="bgMusic" loop>
-<source src="music.mp3">
+<!-- background music -->
+<audio id="bgMusic" preload="auto" loop>
+<source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<audio id="clickSound">
-<source src="click.mp3">
+<!-- click sound -->
+<audio id="clickSound" preload="auto">
+<source src="click.mp3" type="audio/mpeg">
 </audio>
 
 <!-- PAGE 1 -->
@@ -186,7 +188,8 @@ line-height:1.6;
 color:#5a2b3b;
 font-size:18px;
 font-weight:600;
-">Okieee sooo now that you've clicked YES 🥰💗  
+">
+Okieee sooo now that you've clicked YES 🥰💗  
 I know it's already a little late... and Valentine’s week is starting and all...  
 But since this is our first one together,
 I wanted to ask you properly anyway lol 😭
@@ -206,7 +209,6 @@ So… will you be my Valentine this year? 💖✨
 <script>
 function openWindow(){
 let click=document.getElementById("clickSound");
-
 click.currentTime=0;
 click.play();
 
@@ -245,9 +247,11 @@ noBtn.style.display="none";
 
 document.body.classList.add("shake");
 
+/* PLAY MUSIC AFTER YES */
 let music=document.getElementById("bgMusic");
 music.currentTime=0;
-music.play();
+let promise = music.play();
+if(promise !== undefined){ promise.catch(()=>{}); }
 
 setTimeout(()=>{
 document.body.classList.remove("shake");
@@ -318,5 +322,3 @@ setTimeout(()=>t.remove(),10000);
 
 </body>
 </html>
-
-
