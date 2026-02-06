@@ -247,11 +247,10 @@ noBtn.style.display="none";
 
 document.body.classList.add("shake");
 
-/* PLAY MUSIC AFTER YES */
+/* PLAY MUSIC RIGHT ON CLICK */
 let music=document.getElementById("bgMusic");
 music.currentTime=0;
-let promise = music.play();
-if(promise !== undefined){ promise.catch(()=>{}); }
+music.play().catch(()=>{});
 
 setTimeout(()=>{
 document.body.classList.remove("shake");
@@ -263,12 +262,16 @@ loveBackground();
 }
 };
 
+
 let noTexts=[
 "Wrong option 😤",
 "You can't escape 😂",
-"Click YES 😌",
+"You better click YES rn dawg 😦",
 "Nice try 😒",
 "Nope nope nope 🙅‍♀️"
+" BRUHHHHHHHHH" 
+" You no luv me no more :("
+"😔😔😔😔"
 ];
 
 noBtn.onmouseover=function(){
@@ -322,3 +325,4 @@ setTimeout(()=>t.remove(),10000);
 
 </body>
 </html>
+
