@@ -303,13 +303,14 @@ let i=0;
 let target=document.getElementById("finalMsg");
 target.innerHTML="";
 
+/* slower typing */
 let typing=setInterval(()=>{
 target.innerHTML+=msg[i];
 i++;
-if(i>=msg.length) clearInterval(typing);
-},25);
+if(i>=msg.length){
+clearInterval(typing);
 
-setTimeout(()=>{
+/* start I LOVE YOU after text fully appears */
 setInterval(()=>{
 let t=document.createElement("div");
 t.className="loveText";
@@ -317,12 +318,14 @@ t.innerHTML="I love you 💖";
 t.style.left=Math.random()*90+"vw";
 document.body.appendChild(t);
 setTimeout(()=>t.remove(),10000);
-},1200);
-},2000);
+},1400);
+
+}
+},45);
 }
 };
 
-/* hidden signature trigger */
+/* hidden signature */
 let clicks=0;
 document.querySelectorAll(".cat").forEach(cat=>{
 cat.onclick=()=>{
@@ -333,7 +336,8 @@ document.getElementById("sig").style.opacity=1;
 };
 });
 
-let noTexts=["Wrong option 😤",
+let noTexts=[
+"Wrong option 😤",
 "You can't escape 😂",
 "You better click that YES rn dawg 😦",
 "Nice try 😒",
@@ -343,11 +347,19 @@ let noTexts=["Wrong option 😤",
 "You no luv me no more?? :("
 ];
 
-
+/* keep NO button inside screen */
 noBtn.onmouseover=function(){
 noBtn.style.position="absolute";
-noBtn.style.left=Math.random()*80+"vw";
-noBtn.style.top=Math.random()*80+"vh";
+
+let maxX=window.innerWidth-150;
+let maxY=window.innerHeight-150;
+
+let x=Math.random()*maxX;
+let y=Math.random()*maxY;
+
+noBtn.style.left=x+"px";
+noBtn.style.top=y+"px";
+
 result.innerHTML=noTexts[Math.floor(Math.random()*noTexts.length)];
 };
 
