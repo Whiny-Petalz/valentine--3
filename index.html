@@ -151,7 +151,8 @@ to{transform:translateY(-100vh);opacity:0;}
 
 <body>
 
-<audio id="bgMusic" preload="auto" loop>
+<!-- Safari-friendly audio -->
+<audio id="bgMusic" preload="auto" loop playsinline webkit-playsinline>
 <source src="music.mp3" type="audio/mpeg">
 </audio>
 
@@ -187,7 +188,7 @@ to{transform:translateY(-100vh);opacity:0;}
 </div>
 </div>
 
-<!-- PAGE 3 unchanged -->
+<!-- PAGE 3 -->
 <div id="page2" class="page" style="display:none;">
 <div class="window">
 
@@ -218,7 +219,7 @@ let fill=document.getElementById("loaderFill");
 click.currentTime=0;
 click.play();
 
-/* force music load then play */
+/* Safari fix: force load then play */
 music.load();
 music.currentTime=0;
 music.play().catch(()=>{});
@@ -226,15 +227,6 @@ music.play().catch(()=>{});
 loader.style.display="block";
 setTimeout(()=>fill.style.width="100%",50);
 
-setTimeout(()=>{
-document.getElementById("startPage").style.display="none";
-document.getElementById("page1").style.display="flex";
-},1400);
-}
-
-setTimeout(()=>fill.style.width="100%",50);
-
-/* cute loader hearts */
 setInterval(()=>{
 let h=document.createElement("div");
 h.className="loaderHeart";
@@ -250,7 +242,7 @@ document.getElementById("page1").style.display="flex";
 },1400);
 }
 
-/* everything else unchanged */
+/* rest unchanged */
 let yesBtn=document.getElementById("yesBtn");
 let noBtn=document.getElementById("noBtn");
 let result=document.getElementById("result");
@@ -291,12 +283,10 @@ let noTexts=[
 "You no luv me no more?? :("
 ];
 
-
 noBtn.onmouseover=function(){
 noBtn.style.position="absolute";
 noBtn.style.left=Math.random()*80+"vw";
 noBtn.style.top=Math.random()*80+"vh";
-
 result.innerHTML=noTexts[Math.floor(Math.random()*noTexts.length)];
 };
 
@@ -328,6 +318,3 @@ setTimeout(()=>t.remove(),10000);
 
 </body>
 </html>
-
-
-
