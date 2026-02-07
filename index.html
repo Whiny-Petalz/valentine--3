@@ -16,6 +16,7 @@ body{
     overflow:hidden;
 }
 
+/* floating love text */
 .loveText{
     position:fixed;
     color:rgba(255,0,100,0.28);
@@ -58,6 +59,25 @@ to{transform:translateY(-100vh);}
     margin-top:15px;
 }
 
+/* loader */
+.loader{
+    width:220px;
+    height:16px;
+    border-radius:20px;
+    background:#ffd6ea;
+    overflow:hidden;
+    margin-top:15px;
+    display:none;
+}
+
+.loaderFill{
+    height:100%;
+    width:0%;
+    background:#ff4da6;
+    transition:width 1.3s linear;
+}
+
+/* red window */
 .window{
     background:url("window.png");
     background-size:contain;
@@ -66,7 +86,6 @@ to{transform:translateY(-100vh);}
     padding:100px 55px 140px;
     width:90%;
     max-width:720px;
-    box-sizing:border-box;
 }
 
 .window h1{
@@ -120,21 +139,26 @@ to{transform:translateY(-100vh);opacity:0;}
 <body>
 
 <audio id="bgMusic" preload="auto" loop>
-<source src="music.mp3" type="audio/mpeg">
+<source src="music.mp3">
 </audio>
 
 <audio id="clickSound" preload="auto">
-<source src="click.mp3" type="audio/mpeg">
+<source src="click.mp3">
 </audio>
 
+<!-- PAGE 1 -->
 <div id="startPage" class="page">
 <img src="envelope.png" class="envelope pulse" onclick="openWindow()">
 <div class="startText">♡ There's a message for you ♡</div>
+
+<div class="loader" id="loader">
+<div class="loaderFill" id="loaderFill"></div>
+</div>
 </div>
 
+<!-- PAGE 2 -->
 <div id="page1" class="page" style="display:none;">
 <div class="window">
-
 <h1>Will you be my Valentine? 💖</h1>
 
 <img src="cat_dance.gif" class="cat">
@@ -147,30 +171,23 @@ to{transform:translateY(-100vh);opacity:0;}
 
 <img src="no.png" id="noBtn">
 </div>
-
 </div>
 </div>
 
+<!-- PAGE 3 -->
 <div id="page2" class="page" style="display:none;">
 <div class="window">
 
 <h1>YAYYAYYYAYYYY💞✨</h1>
-
 <img src="cat_heart.gif" class="cat">
 
 <p style="max-width:440px;margin:auto;line-height:1.6;color:#5a2b3b;font-size:18px;font-weight:600;">
 Okieee sooo now that you've clicked YES 🥰💗  
-I know it's already a little late... and Valentine’s week is starting and all...  
-But since this is our first one together,
-I wanted to ask you properly anyway lol 😭
-
 Being with you honestly makes everything softer, funnier, and warmer every day.
-Thank you for being so patient with me, making me laugh, and just being you with me.
 
 I really love the little moments we share, and I can’t wait to make many more memories together <3
-So… will you be my Valentine this year? 💖✨
 
-(You're not getting rid of me now btw 🤷‍♀️😌)
+So… will you be my Valentine this year? 💖✨
 </p>
 
 </div>
@@ -180,18 +197,24 @@ So… will you be my Valentine this year? 💖✨
 function openWindow(){
 let click=document.getElementById("clickSound");
 let music=document.getElementById("bgMusic");
+let loader=document.getElementById("loader");
+let fill=document.getElementById("loaderFill");
 
-click.currentTime=0;
 click.play();
 
-/* start music when YES/NO page appears */
+/* loader animation */
+loader.style.display="block";
+setTimeout(()=>fill.style.width="100%",50);
+
+/* play music safely */
 music.currentTime=0;
 music.play().catch(()=>{});
 
+/* switch page after loading */
 setTimeout(()=>{
 document.getElementById("startPage").style.display="none";
 document.getElementById("page1").style.display="flex";
-},300);
+},1400);
 }
 
 let yesBtn=document.getElementById("yesBtn");
@@ -199,8 +222,7 @@ let noBtn=document.getElementById("noBtn");
 let result=document.getElementById("result");
 let yesWrap=document.getElementById("yesWrap");
 
-let scale=1;
-let step=0;
+let scale=1, step=0;
 
 let yesTexts=[
 "Are you sureee? 😌",
@@ -216,8 +238,7 @@ result.innerHTML=yesTexts[step];
 scale+=0.25;
 yesWrap.style.transform="scale("+scale+")";
 step++;
-}
-else{
+}else{
 document.getElementById("page1").style.display="none";
 document.getElementById("page2").style.display="flex";
 confetti();
@@ -228,10 +249,10 @@ loveBackground();
 let noTexts=[
 "Wrong option 😤",
 "You can't escape 😂",
-"You better click YES rn dawg 😦",
+"You better click YES rn 😦",
 "Nice try 😒",
 "Nope nope nope 🙅‍♀️",
-"BRUHHHHHHHHH",
+"BRUHHHH",
 "You no luv me no more :(",
 "😔😔😔😔"
 ];
@@ -245,7 +266,7 @@ result.innerHTML=noTexts[Math.floor(Math.random()*noTexts.length)];
 };
 
 function confetti(){
-for(let i=0;i<100;i++){
+for(let i=0;i<80;i++){
 let c=document.createElement("div");
 c.innerHTML="💖";
 c.style.position="fixed";
