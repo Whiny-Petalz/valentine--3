@@ -39,7 +39,6 @@ body{
     to{transform:translateY(110vh);opacity:0;}
 }
 
-/* window glow */
 .window{
     background:url("window.png");
     background-size:contain;
@@ -148,6 +147,7 @@ color:white;
 font-family:inherit;
 font-size:16px;
 cursor:pointer;
+display:none;
 }
 </style>
 </head>
@@ -198,7 +198,7 @@ cursor:pointer;
 style="max-width:440px;margin:auto;line-height:1.6;color:#5a2b3b;font-size:18px;font-weight:600;">
 </p>
 
-<button class="closeBtn" onclick="endLetter()">Close letter 💌</button>
+<button class="closeBtn" id="closeBtn" onclick="endLetter()">Close letter 💌</button>
 
 </div>
 </div>
@@ -225,7 +225,6 @@ let fill=document.getElementById("loaderFill");
 
 click.currentTime=0;
 click.play();
-
 music.currentTime=0;
 music.play().catch(()=>{});
 
@@ -264,13 +263,13 @@ document.getElementById("page1").style.display="none";
 document.getElementById("page2").style.display="flex";
 
 let msg=`Okieee sooo now that you've clicked YES 🥰💗 
-I know it's already a little late... and Valentine’s week is starting and all...
-But since this is our first one together,
-I wanted to ask you properly anyway lol 😭
+I know it's already a little late... and Valentine’s week is starting and all... But since,
+this is our first one together, I wanted to ask you properly anyway lol 😭
 Being with you honestly makes everything softer, funnier, and warmer every day.
-Thank you for being so patient with me.
-I really love the little moments we share.
-So… will you be my Valentine this year? 💖✨`;
+Thank you for being so patient with me, making me laugh, and just being you with me.
+I really love the little moments we share, and I can’t wait to make many more memories together <3
+So… will you be my Valentine this year? 💖✨ 
+(You're not getting rid of me now btw 🤷‍♀️😌)`;
 
 let i=0;
 let target=document.getElementById("finalMsg");
@@ -279,12 +278,23 @@ target.innerHTML="";
 let typing=setInterval(()=>{
 target.innerHTML+=msg[i];
 i++;
-if(i>=msg.length) clearInterval(typing);
+if(i>=msg.length){
+clearInterval(typing);
+document.getElementById("closeBtn").style.display="inline-block";
+}
 },30);
 }
 };
 
-let noTexts=["Wrong option 😤","You can't escape 😂","Click YES 😌"];
+let noTexts=["Wrong option 😤",
+"You can't escape 😂",
+"You better click that YES rn dawg 😦",
+"Nice try 😒",
+"Nope nope nope 🙅‍♀️",
+"BRUHHHHHHHHH",
+"Are you being fr rn bruv?? :0",
+"You no luv me no more?? :("
+];
 
 noBtn.onmouseover=function(){
 noBtn.style.position="absolute";
@@ -293,20 +303,8 @@ noBtn.style.top=Math.random()*80+"vh";
 result.innerHTML=noTexts[Math.floor(Math.random()*noTexts.length)];
 };
 
-/* FINAL CINEMATIC END */
 window.endLetter=function(){
 
-/* petals */
-setInterval(()=>{
-let p=document.createElement("div");
-p.className="petal";
-p.innerHTML="🌸";
-p.style.left=Math.random()*100+"vw";
-document.body.appendChild(p);
-setTimeout(()=>p.remove(),6000);
-},200);
-
-/* fade music */
 let music=document.getElementById("bgMusic");
 let fade=setInterval(()=>{
 if(music.volume>0.05){
@@ -317,17 +315,24 @@ clearInterval(fade);
 }
 },120);
 
-/* zoom out */
-document.body.classList.add("zoomOut");
+/* spam I love you */
+setInterval(()=>{
+let t=document.createElement("div");
+t.className="loveText";
+t.innerHTML="I love you 💖";
+t.style.left=Math.random()*90+"vw";
+document.body.appendChild(t);
+},600);
 
-setTimeout(()=>{
 document.body.innerHTML=`
-<div style="margin-top:35vh;color:white;font-size:34px;">
-see you around the same time next year hihihii :3 💖<br><br>
+<div style="margin-top:35vh;color:white;font-size:30px;">
+💖💖<br>
+That's it for rn,<br>
+see ya again next year,<br>
+same time around hihihihihih :3<br>
+💖💖<br><br>
 <img src="envelope.png" style="width:180px;">
 </div>`;
-},2800);
-
 };
 
 };
