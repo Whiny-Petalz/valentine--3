@@ -16,7 +16,7 @@ body{
     overflow:hidden;
 }
 
-/* floating love text */
+/* floating I love you text */
 .loveText{
     position:fixed;
     color:rgba(255,0,100,0.28);
@@ -68,6 +68,7 @@ to{transform:translateY(-100vh);}
     overflow:hidden;
     margin-top:15px;
     display:none;
+    position:relative;
 }
 
 .loaderFill{
@@ -75,6 +76,18 @@ to{transform:translateY(-100vh);}
     width:0%;
     background:#ff4da6;
     transition:width 1.3s linear;
+}
+
+/* loader hearts */
+.loaderHeart{
+    position:absolute;
+    font-size:14px;
+    animation:heartPop 1.2s linear infinite;
+}
+
+@keyframes heartPop{
+from{transform:translateY(10px);opacity:0;}
+to{transform:translateY(-25px);opacity:1;}
 }
 
 /* red window */
@@ -139,17 +152,17 @@ to{transform:translateY(-100vh);opacity:0;}
 <body>
 
 <audio id="bgMusic" preload="auto" loop>
-<source src="music.mp3">
+<source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <audio id="clickSound" preload="auto">
-<source src="click.mp3">
+<source src="click.mp3" type="audio/mpeg">
 </audio>
 
 <!-- PAGE 1 -->
 <div id="startPage" class="page">
 <img src="envelope.png" class="envelope pulse" onclick="openWindow()">
-<div class="startText">♡ There's a message for you ♡</div>
+<div class="startText">♡ Seems like You've got a special message ♡</div>
 
 <div class="loader" id="loader">
 <div class="loaderFill" id="loaderFill"></div>
@@ -174,7 +187,7 @@ to{transform:translateY(-100vh);opacity:0;}
 </div>
 </div>
 
-<!-- PAGE 3 -->
+<!-- PAGE 3 unchanged -->
 <div id="page2" class="page" style="display:none;">
 <div class="window">
 
@@ -182,12 +195,14 @@ to{transform:translateY(-100vh);opacity:0;}
 <img src="cat_heart.gif" class="cat">
 
 <p style="max-width:440px;margin:auto;line-height:1.6;color:#5a2b3b;font-size:18px;font-weight:600;">
-Okieee sooo now that you've clicked YES 🥰💗  
+Okieee sooo now that you've clicked YES 🥰💗 
+I know it's already a little late... and Valentine’s week is starting and all... But since,
+this is our first one together, I wanted to ask you properly anyway lol 😭
 Being with you honestly makes everything softer, funnier, and warmer every day.
-
+Thank you for being so patient with me, making me laugh, and just being you with me.
 I really love the little moments we share, and I can’t wait to make many more memories together <3
-
-So… will you be my Valentine this year? 💖✨
+So… will you be my Valentine this year? 💖✨ 
+(You're not getting rid of me now btw 🤷‍♀️😌)
 </p>
 
 </div>
@@ -200,23 +215,33 @@ let music=document.getElementById("bgMusic");
 let loader=document.getElementById("loader");
 let fill=document.getElementById("loaderFill");
 
+click.currentTime=0;
 click.play();
 
-/* loader animation */
-loader.style.display="block";
-setTimeout(()=>fill.style.width="100%",50);
-
-/* play music safely */
+/* start music with click */
 music.currentTime=0;
 music.play().catch(()=>{});
 
-/* switch page after loading */
+loader.style.display="block";
+setTimeout(()=>fill.style.width="100%",50);
+
+/* cute loader hearts */
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="loaderHeart";
+h.innerHTML="💖";
+h.style.left=Math.random()*200+"px";
+loader.appendChild(h);
+setTimeout(()=>h.remove(),1000);
+},200);
+
 setTimeout(()=>{
 document.getElementById("startPage").style.display="none";
 document.getElementById("page1").style.display="flex";
 },1400);
 }
 
+/* everything else unchanged */
 let yesBtn=document.getElementById("yesBtn");
 let noBtn=document.getElementById("noBtn");
 let result=document.getElementById("result");
@@ -249,12 +274,12 @@ loveBackground();
 let noTexts=[
 "Wrong option 😤",
 "You can't escape 😂",
-"You better click YES rn dawg😦",
+"You better click YES rn dawg 😦",
 "Nice try 😒",
-"Nope nope nope 🙅‍♀️",
-"BRUHHHH",
-"You no luv me no more :(",
-"😔😔😔😔"
+"Nope nope nope 🙅‍♀️"
+" BRUHHHHHHHHH"
+"Are bfr rn bruv?? :0 "
+"You no luv me no more?? :( "
 ];
 
 noBtn.onmouseover=function(){
@@ -293,4 +318,3 @@ setTimeout(()=>t.remove(),10000);
 
 </body>
 </html>
-
