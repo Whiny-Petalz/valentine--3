@@ -218,11 +218,20 @@ let fill=document.getElementById("loaderFill");
 click.currentTime=0;
 click.play();
 
-/* start music with click */
+/* force music load then play */
+music.load();
 music.currentTime=0;
 music.play().catch(()=>{});
 
 loader.style.display="block";
+setTimeout(()=>fill.style.width="100%",50);
+
+setTimeout(()=>{
+document.getElementById("startPage").style.display="none";
+document.getElementById("page1").style.display="flex";
+},1400);
+}
+
 setTimeout(()=>fill.style.width="100%",50);
 
 /* cute loader hearts */
@@ -319,5 +328,6 @@ setTimeout(()=>t.remove(),10000);
 
 </body>
 </html>
+
 
 
