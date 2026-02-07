@@ -286,7 +286,8 @@ document.getElementById("closeBtn").style.display="inline-block";
 }
 };
 
-let noTexts=["Wrong option 😤",
+let noTexts=[
+"Wrong option 😤",
 "You can't escape 😂",
 "You better click that YES rn dawg 😦",
 "Nice try 😒",
@@ -296,11 +297,24 @@ let noTexts=["Wrong option 😤",
 "You no luv me no more?? :("
 ];
 
+let noIndex = 0;
+
 noBtn.onmouseover=function(){
-noBtn.style.position="absolute";
-noBtn.style.left=Math.random()*80+"vw";
-noBtn.style.top=Math.random()*80+"vh";
-result.innerHTML=noTexts[Math.floor(Math.random()*noTexts.length)];
+    noBtn.style.position="absolute";
+
+    /* keep inside screen */
+    let maxX = window.innerWidth - 150;
+    let maxY = window.innerHeight - 150;
+
+    let x = Math.random() * maxX;
+    let y = Math.random() * maxY;
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+
+    /* toggle texts one by one */
+    result.innerHTML = noTexts[noIndex];
+    noIndex = (noIndex + 1) % noTexts.length;
 };
 
 window.endLetter=function(){
@@ -340,3 +354,4 @@ same time around hihihihihih :3<br>
 
 </body>
 </html>
+
